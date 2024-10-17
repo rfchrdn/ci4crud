@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+    container_name: codeigniter_app
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "9000:9000"
+    networks:
+      - ci_network
+
+  db:
+    image: mysql:8.0
+    container_name: ci4crud
+    environment:
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_DATABASE: komik
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 
+    ports:
+      - "3306:3306"
+    networks:
+      - ci_network
+
+networks:
+  ci_network:
+    driver: bridge
