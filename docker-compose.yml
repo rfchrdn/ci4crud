@@ -5,9 +5,19 @@ services:
    ports:
     - "80:80"
 
- db:
-  build: dockerfiles/mysql
-  ports:
-   - "3308:3308"
-  volumes:
-   - /c/xampp/htdocs/ci4crud/database/:/var/lib/mysql
+db:
+    image: mysql:8.0
+    container_name: ci4-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: ci4_db
+      MYSQL_USER: ci4user
+      MYSQL_PASSWORD: ci4password
+    ports:
+      - "3306:3306"
+    networks:
+      - ci4-network
+
+networks:
+  ci4-network:
+    driver: bridge
